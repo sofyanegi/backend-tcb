@@ -14,4 +14,9 @@ class Sparepart extends Model
         'minimal_stok',
         'stok',
     ];
+
+    public function detailTransactions()
+    {
+        return $this->hasMany(DetailTransaction::class, 'id_sparepart');
+    }
 }

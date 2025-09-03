@@ -11,4 +11,14 @@ class Transaction extends Model
         'name_pemohon',
         'id_user'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function details()
+    {
+        return $this->hasMany(DetailTransaction::class, 'id_transaksi');
+    }
 }

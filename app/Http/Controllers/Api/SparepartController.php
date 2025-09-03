@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiResponse;
 use App\Models\Sparepart;
 use Illuminate\Http\Request;
@@ -16,9 +17,9 @@ class SparepartController extends Controller
     {
         $spareparts = Sparepart::latest()->paginate(10);
 
-        return ApiResponse::success([
+        return ApiResponse::success(
             $spareparts
-        ]);
+        );
     }
 
     /**

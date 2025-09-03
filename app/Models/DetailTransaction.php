@@ -11,4 +11,15 @@ class DetailTransaction extends Model
         'id_sparepart',
         'jumlah'
     ];
+
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class, 'id_transaksi');
+    }
+
+    public function sparepart()
+    {
+        return $this->belongsTo(Sparepart::class, 'id_sparepart');
+    }
 }

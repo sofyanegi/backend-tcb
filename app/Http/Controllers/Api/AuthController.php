@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiResponse;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,6 +32,8 @@ class AuthController extends Controller
             'password' => Hash::make($request->input('password')),
         ]);
 
+        $user->assignRole('user');
+
         return ApiResponse::success([
             'user' =>   $user
         ], 'User registered successfully');
@@ -47,17 +50,20 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        $user = User::where('email', $request->input('email'))->first();
-        if (!$user || !Hash::check($request->input('password'), $user->password)) {
-            return response()->json([
-                'message' => 'Invalid Credentials'
-            ], 401);
+        if (!Auth::attempt([
+            'email' => $request->input('email'),
+            'password' => $request->input('password')
+        ])) {
+            return response()->json(['message' => 'Invalid login'], 401);
         }
+
+        $user = Auth::user();
+
 
         $token = $user->createToken('api-token')->plainTextToken;
         return ApiResponse::success([
             'user' =>   $user,
-            'accecc_token' =>   $token
+            'access_token' =>   $token
         ], 'User login successfully');
     }
 
