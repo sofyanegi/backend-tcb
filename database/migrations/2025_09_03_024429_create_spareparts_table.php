@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('spareparts', function (Blueprint $table) {
             $table->id();
-            $table->string('name_sparepart', 100);
+            $table->string('nama_sparepart', 100);
             $table->integer('minimal_stok');
             $table->integer('stok');
             $table->timestamps();

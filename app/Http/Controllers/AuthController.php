@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ApiResource;
 use App\Http\Resources\ApiResponse;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -56,7 +56,16 @@ class AuthController extends Controller
 
         $token = $user->createToken('api-token')->plainTextToken;
         return ApiResponse::success([
-            'token' =>   $token
+            'user' =>   $user,
+            'accecc_token' =>   $token
         ], 'User login successfully');
+    }
+
+    public function logout()
+    {
+        Auth::user()->tokens()->delete();
+        return response()->json([
+            'message' => 'logout success'
+        ]);
     }
 }

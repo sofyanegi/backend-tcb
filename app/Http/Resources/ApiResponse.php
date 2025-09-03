@@ -21,4 +21,12 @@ class ApiResponse
             'errors'  => $errors,
         ], $statusCode);
     }
+
+    public static function notFound(string $message = 'Not Found',  int $statusCode = 404)
+    {
+        return response()->json([
+            'status'  => 'not found',
+            'message' => $message,
+        ], $statusCode);
+    }
 }

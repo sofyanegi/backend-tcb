@@ -10,7 +10,7 @@ class Sparepart extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name_sparepart',
+        'nama_sparepart',
         'minimal_stok',
         'stok',
     ];
